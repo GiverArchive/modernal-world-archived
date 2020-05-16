@@ -6,7 +6,7 @@ import me.giverplay.modernalworld.command.CommandManager.CommandType;
 
 public abstract class Command
 	{
-		private String name, usage, permission;
+		private String name, usage;
 		private CommandType type;
 		
 		public Command(String name, String usage, CommandType type)
@@ -14,24 +14,26 @@ public abstract class Command
 			this.name = name;
 			this.type = type;
 			this.usage = usage;
-			
-			this.permission = "modernalworld.command." + name;
 		}
 		
-		public String getName(){
+		public String getName()
+		{
 			return this.name;
 		}
 		
-		public String getUsage(){
-			return this.usage;
+		public String getUsage()
+		{
+			return "§cUtilize : " + this.usage;
 		}
 		
-		public CommandType getType(){
+		public CommandType getType()
+		{
 			return this.type;
 		}
 		
-		public String getPermission(){
-			return this.permission;
+		public String getPermission()
+		{
+			return "modernalworld.command." + this.name;
 		}
 		
 		public abstract void execute(CommandSender sender, String[] args);

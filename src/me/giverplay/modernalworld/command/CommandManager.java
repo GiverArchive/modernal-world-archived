@@ -27,13 +27,13 @@ public class CommandManager implements CommandExecutor
 				sender.sendMessage("§cEste comando só pode ser executado por jogadores");
 				return true;
 			}
-			
-			if(!((Player) sender).hasPermission(command.getPermission()))
-			{
-				sender.sendMessage("§cPermissões insulficientes");
-				return true;
-			}
 		} 
+		
+		if(!sender.hasPermission(command.getPermission()))
+		{
+			sender.sendMessage("§cPermissões insulficientes");
+			return true;
+		}
 		
 		command.execute(sender, args);
 		return true;
