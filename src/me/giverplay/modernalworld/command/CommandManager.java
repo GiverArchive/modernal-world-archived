@@ -38,11 +38,4 @@ public class CommandManager implements CommandExecutor
 		command.execute(sender, args);
 		return true;
 	}
-	
-	public static enum CommandType
-	{
-		PLAYER,
-		GENERAL;
-	}
-	
 }
