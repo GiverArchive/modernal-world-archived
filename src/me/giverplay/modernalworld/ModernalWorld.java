@@ -6,12 +6,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.giverplay.modernalworld.command.Command;
 import me.giverplay.modernalworld.command.CommandManager;
+import me.giverplay.modernalworld.manager.PlayerManager;
 
 public class ModernalWorld extends JavaPlugin
 {
 	private static ModernalWorld instance;
 	
 	private HashMap<String, Command> commands = new HashMap<>();
+	private HashMap<String, PlayerManager> players = new HashMap<>();
 	
 	public static ModernalWorld getInstance()
 	{
@@ -57,5 +59,13 @@ public class ModernalWorld extends JavaPlugin
 		{
 			plugin.getCommand(cmd).setExecutor(manager);
 		}
+	}
+	
+	public void addPlayerManager(String name){
+		players.put(name, new PlayerManager(name));
+	}
+	
+	public PlayerManager getPlayerManager(String name){
+		return (players.containsKey(name) ? players.get(name) : null);
 	}
 }

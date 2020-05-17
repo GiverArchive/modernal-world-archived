@@ -2,8 +2,6 @@ package me.giverplay.modernalworld.command;
 
 import org.bukkit.command.CommandSender;
 
-import me.giverplay.modernalworld.command.CommandManager.CommandType;
-
 public abstract class Command
 	{
 		private String name, usage;
