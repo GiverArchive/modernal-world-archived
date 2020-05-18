@@ -17,7 +17,6 @@ public class PlayerManager extends ConfigManager
 		
 		this.player = Bukkit.getPlayer(name);
 		this.craftplayer = (CraftPlayer) this.player;
-		
 	}
 	
 	public Player getPlayer(){
