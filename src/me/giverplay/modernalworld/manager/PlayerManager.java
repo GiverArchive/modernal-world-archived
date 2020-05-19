@@ -19,23 +19,28 @@ public class PlayerManager extends ConfigManager
 		this.craftplayer = (CraftPlayer) this.player;
 	}
 	
-	public Player getPlayer(){
+	public Player getPlayer()
+	{
 		return this.player;
 	}
 	
-	public CraftPlayer getCraftPlayer(){
+	public CraftPlayer getCraftPlayer()
+	{
 		return this.craftplayer;
 	}
 	
-	public String getName(){
+	public String getName()
+	{
 		return this.nick;
 	}
 	
-	public void sendMessage(String msg){
+	public void sendMessage(String msg)
+	{
 		this.player.sendMessage(msg);
 	}
 	
-	public boolean hasPermission(String perm){
+	public boolean hasPermission(String perm)
+	{
 		return this.player.hasPermission(perm);
 	}
 }

@@ -73,7 +73,8 @@ public class ConfigManager
   {
   	this.datafolder = new File(plugin.getDataFolder(), this.folder);
   	
-  	if(!datafolder.exists()){
+  	if(!datafolder.exists())
+  	{
   		datafolder.mkdir();
   	}
   	

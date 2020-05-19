@@ -2,6 +2,7 @@ package me.giverplay.modernalworld;
 
 import java.util.HashMap;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.giverplay.modernalworld.command.Command;
@@ -24,17 +25,20 @@ public class ModernalWorld extends JavaPlugin
 	public void onEnable()
 	{
 		instance = this;
+		
+		print(" §aHabilitando plugin");
 	}
 	
 	@Override
 	public void onDisable()
 	{
-		
+		print(getPrefix() + " §cDesabilitando plugin");
 	}
 
 	public Command getRegisteredCommand(String name)
 	{
-		if(!commands.containsKey(name)){
+		if(!commands.containsKey(name))
+		{
 			return null;
 		}
 		
@@ -61,11 +65,28 @@ public class ModernalWorld extends JavaPlugin
 		}
 	}
 	
-	public void addPlayerManager(String name){
+	public void addPlayerManager(String name)
+	{
 		players.put(name, new PlayerManager(name));
 	}
 	
-	public PlayerManager getPlayerManager(String name){
+	public PlayerManager getPlayerManager(String name)
+	{
 		return (players.containsKey(name) ? players.get(name) : null);
+	}
+	
+	public void print(String msg)
+	{
+		Bukkit.getConsoleSender().sendMessage(msg);
+	}
+	
+	public void runConsole(String command)
+	{
+		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+	}
+	
+	public String getPrefix()
+	{
+		return "§a[ModernalWorld]§r";
 	}
 }
