@@ -20,7 +20,33 @@ public class ModernalWorld extends JavaPlugin
 	{
 		return instance;
 	}
-
+	
+	// TODO Ferramentas
+	
+	public void print(String msg)
+	{
+		Bukkit.getConsoleSender().sendMessage(msg);
+	}
+	
+	public void runConsole(String command)
+	{
+		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+	}
+	
+	public String getPrefix()
+	{
+		return "§a[ModernalWorld]§r";
+	}
+	
+	// TODO Getters - Coleções
+	
+	public HashMap<String, Command> getRegisteredCommands()
+	{
+		return this.commands;
+	}
+	
+	// TODO Encapsulamentos principais
+	
 	public void addCommand(String name, Command command)
 	{
 		commands.put(name, command);
@@ -39,21 +65,6 @@ public class ModernalWorld extends JavaPlugin
 	public PlayerManager getPlayerManager(String name)
 	{
 		return (players.containsKey(name) ? players.get(name) : null);
-	}
-	
-	public void print(String msg)
-	{
-		Bukkit.getConsoleSender().sendMessage(msg);
-	}
-	
-	public void runConsole(String command)
-	{
-		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
-	}
-	
-	public String getPrefix()
-	{
-		return "§a[ModernalWorld]§r";
 	}
 	
 	// TODO Metodos De Registro
