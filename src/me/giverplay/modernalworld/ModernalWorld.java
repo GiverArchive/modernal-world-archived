@@ -20,30 +20,6 @@ public class ModernalWorld extends JavaPlugin
 	{
 		return instance;
 	}
-	
-	@Override
-	public void onEnable()
-	{
-		instance = this;
-		
-		print(" §aHabilitando plugin");
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		print(getPrefix() + " §cDesabilitando plugin");
-	}
-
-	public Command getRegisteredCommand(String name)
-	{
-		if(!commands.containsKey(name))
-		{
-			return null;
-		}
-		
-		return commands.get(name);
-	}
 
 	public void addCommand(String name, Command command)
 	{
@@ -53,16 +29,6 @@ public class ModernalWorld extends JavaPlugin
 	public void removeCommand(String name)
 	{
 		commands.remove(name);
-	}
-	
-	public void registerCommands(JavaPlugin plugin)
-	{
-		CommandManager manager = new CommandManager(this);
-		
-		for(String cmd : commands.keySet())
-		{
-			plugin.getCommand(cmd).setExecutor(manager);
-		}
 	}
 	
 	public void addPlayerManager(String name)
@@ -88,5 +54,45 @@ public class ModernalWorld extends JavaPlugin
 	public String getPrefix()
 	{
 		return "§a[ModernalWorld]§r";
+	}
+	
+	// TODO Metodos De Registro
+	
+	private void registerCommands()
+	{
+		CommandManager manager = new CommandManager(this);
+		
+		for(String cmd : commands.keySet())
+		{
+			getCommand(cmd).setExecutor(manager);
+		}
+	}
+	
+	// TODO Enable e Disable
+	
+	@Override
+	public void onEnable()
+	{
+		instance = this;
+		
+		print(" §aHabilitando plugin");
+		
+		registerCommands();
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		print(getPrefix() + " §cDesabilitando plugin");
+	}
+
+	public Command getRegisteredCommand(String name)
+	{
+		if(!commands.containsKey(name))
+		{
+			return null;
+		}
+		
+		return commands.get(name);
 	}
 }
