@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.giverplay.modernalworld.command.Command;
 import me.giverplay.modernalworld.command.CommandManager;
+import me.giverplay.modernalworld.manager.ConfigManager;
 import me.giverplay.modernalworld.manager.PlayerManager;
 
 public class ModernalWorld extends JavaPlugin
@@ -15,6 +16,10 @@ public class ModernalWorld extends JavaPlugin
 	
 	private HashMap<String, Command> commands = new HashMap<>();
 	private HashMap<String, PlayerManager> players = new HashMap<>();
+	
+	private ConfigManager settings;
+	
+	private String prefix = "§a[ModernalWorld]§r";
 	
 	public static ModernalWorld getInstance()
 	{
@@ -35,7 +40,7 @@ public class ModernalWorld extends JavaPlugin
 	
 	public String getPrefix()
 	{
-		return "§a[ModernalWorld]§r";
+		return this.prefix;
 	}
 	
 	// TODO Getters - Coleções
@@ -69,6 +74,14 @@ public class ModernalWorld extends JavaPlugin
 	
 	// TODO Metodos De Registro
 	
+	private void setupConfigs()
+	{
+		settings = new ConfigManager("settings", null);
+		settings.saveDefaultConfig();
+		
+		this.prefix = settings.getConfig().getString("servidor.prefixo");
+	}
+	
 	private void registerCommands()
 	{
 		CommandManager manager = new CommandManager(this);
@@ -88,7 +101,9 @@ public class ModernalWorld extends JavaPlugin
 		
 		print(" §aHabilitando plugin");
 		
+		setupConfigs();
 		registerCommands();
+		
 	}
 	
 	@Override

@@ -22,7 +22,7 @@ public class ConfigManager
     setName(nome + ".yml");
     reloadConfig();
   }
-	  
+  
   private Plugin getPlugin()
   {
     return this.plugin;
@@ -88,7 +88,7 @@ public class ConfigManager
   
   public void reloadConfig()
   {
-  	this.datafolder = new File(plugin.getDataFolder(), this.folder);
+  	this.datafolder = (this.folder != null ? new File(plugin.getDataFolder(), this.folder) : plugin.getDataFolder());
   	
   	if(!datafolder.exists())
   	{
