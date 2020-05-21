@@ -69,6 +69,23 @@ public class ConfigManager
     }
   }
 	  
+  public void createConfig()
+  {
+  	if(!getFile().exists())
+  	{
+  		try
+  		{
+  			getFile().createNewFile();
+  		}
+  		catch(IOException e)
+  		{
+  			e.printStackTrace();
+  		}
+  	}
+  	
+  	reloadConfig();
+  }
+  
   public void reloadConfig()
   {
   	this.datafolder = new File(plugin.getDataFolder(), this.folder);
@@ -79,6 +96,7 @@ public class ConfigManager
   	}
   	
     this.file = new File(datafolder, getName());
+    this.createConfig();
     this.config = YamlConfiguration.loadConfiguration(getFile());
   }
 	  
