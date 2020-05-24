@@ -1,11 +1,11 @@
 ranks:
   RankIII:
-    custo: 0
+    custo: 0.0
     proximo: RankII
     primeiro: true
   RankII:
-    custo: 1000
+    custo: 1000.0
     proximo: RankI
   RankI:
-    custo: 1000
+    custo: 1000.0
     ultimo: true

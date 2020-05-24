@@ -9,6 +9,7 @@ import me.giverplay.modernalworld.command.Command;
 import me.giverplay.modernalworld.command.CommandManager;
 import me.giverplay.modernalworld.manager.ConfigManager;
 import me.giverplay.modernalworld.manager.PlayerManager;
+import me.giverplay.modernalworld.objects.Rank;
 
 public class ModernalWorld extends JavaPlugin
 {
@@ -16,6 +17,7 @@ public class ModernalWorld extends JavaPlugin
 	
 	private HashMap<String, Command> commands = new HashMap<>();
 	private HashMap<String, PlayerManager> players = new HashMap<>();
+	private HashMap<String, Rank> rankups = new HashMap<>();
 	
 	private ConfigManager settings;
 	private ConfigManager ranks;
@@ -49,6 +51,11 @@ public class ModernalWorld extends JavaPlugin
 	public HashMap<String, Command> getRegisteredCommands()
 	{
 		return this.commands;
+	}
+	
+	public HashMap<String, Rank> getRankups()
+	{
+		return this.rankups;
 	}
 	
 	// TODO Encapsulamentos principais
@@ -86,6 +93,22 @@ public class ModernalWorld extends JavaPlugin
 		this.prefix = settings.getConfig().getString("servidor.prefixo");
 	}
 	
+	public void setupRanks()
+	{
+		for(String s : ranks.getConfig().getConfigurationSection("ranks").getKeys(false))
+		{
+			String path = "ranks." + s + ".";
+			String proximo = ranks.getConfig().getString(path + "proximo");
+			
+			double custo = ranks.getConfig().getDouble(path + "custo");
+			
+			boolean last = ranks.getConfig().getBoolean(path + "ultimo");
+			boolean prim = ranks.getConfig().getBoolean(path + "primeiro");
+			
+			rankups.put(s, new Rank(s, proximo, custo, last, prim));
+		}
+	}
+	
 	private void registerCommands()
 	{
 		CommandManager manager = new CommandManager(this);
@@ -106,6 +129,7 @@ public class ModernalWorld extends JavaPlugin
 		print(" §aHabilitando plugin");
 		
 		setupConfigs();
+		setupRanks();
 		registerCommands();
 		
 	}
