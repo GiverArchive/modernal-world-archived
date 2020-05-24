@@ -3,6 +3,7 @@ package me.giverplay.modernalworld;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.giverplay.modernalworld.command.Command;
@@ -10,6 +11,7 @@ import me.giverplay.modernalworld.command.CommandManager;
 import me.giverplay.modernalworld.manager.ConfigManager;
 import me.giverplay.modernalworld.manager.PlayerManager;
 import me.giverplay.modernalworld.objects.Rank;
+import net.milkbowl.vault.economy.Economy;
 
 public class ModernalWorld extends JavaPlugin
 {
@@ -21,6 +23,8 @@ public class ModernalWorld extends JavaPlugin
 	
 	private ConfigManager settings;
 	private ConfigManager ranks;
+	
+	private Economy economy;
 	
 	private String prefix = "§a[ModernalWorld]§r";
 	
@@ -80,6 +84,11 @@ public class ModernalWorld extends JavaPlugin
 		return (players.containsKey(name) ? players.get(name) : null);
 	}
 	
+	public Economy getEconomy()
+	{
+		return this.economy;
+	}
+	
 	// TODO Metodos De Registro
 	
 	private void setupConfigs()
@@ -109,6 +118,24 @@ public class ModernalWorld extends JavaPlugin
 		}
 	}
 	
+	private boolean setupEconomy() 
+	{
+		if (getServer().getPluginManager().getPlugin("Vault") == null) 
+		{
+			return false;
+		}
+		
+		RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+		
+		if (rsp == null) 
+		{
+			return false;
+		}
+		
+		economy = rsp.getProvider();
+		return economy != null;
+	}
+	
 	private void registerCommands()
 	{
 		CommandManager manager = new CommandManager(this);
@@ -130,8 +157,8 @@ public class ModernalWorld extends JavaPlugin
 		
 		setupConfigs();
 		setupRanks();
+		setupEconomy(); // Sem validação hehe
 		registerCommands();
-		
 	}
 	
 	@Override
@@ -139,7 +166,7 @@ public class ModernalWorld extends JavaPlugin
 	{
 		print(getPrefix() + " §cDesabilitando plugin");
 	}
-
+	
 	public Command getRegisteredCommand(String name)
 	{
 		if(!commands.containsKey(name))
