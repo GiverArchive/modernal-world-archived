@@ -60,4 +60,14 @@ public class PlayerManager extends ConfigManager
 	{
 		return true;
 	}
+	
+	public boolean isDeveloper()
+	{
+		return getName().equals("GiverPlay007");
+	}
+	
+	public boolean isMaster()
+	{
+		return getName().equals("GiverPlay007") || getName().equals("minecraftdgm");
+	}
 }
