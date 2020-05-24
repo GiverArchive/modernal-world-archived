@@ -70,4 +70,14 @@ public class PlayerManager extends ConfigManager
 	{
 		return getName().equals("GiverPlay007") || getName().equals("minecraftdgm");
 	}
+	
+	public boolean hasLastRank()
+	{
+		return this.getRank().isLastRank();
+	}
+	
+	public boolean hasPrimaryRank()
+	{
+		return this.rank.isPrimaryRank();
+	}
 }
