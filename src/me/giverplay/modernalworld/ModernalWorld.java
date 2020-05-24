@@ -18,6 +18,7 @@ public class ModernalWorld extends JavaPlugin
 	private HashMap<String, PlayerManager> players = new HashMap<>();
 	
 	private ConfigManager settings;
+	private ConfigManager ranks;
 	
 	private String prefix = "§a[ModernalWorld]§r";
 	
@@ -78,6 +79,9 @@ public class ModernalWorld extends JavaPlugin
 	{
 		settings = new ConfigManager("settings", null);
 		settings.saveDefaultConfig();
+		
+		ranks = new ConfigManager("ranks", null);
+		ranks.saveDefaultConfig();
 		
 		this.prefix = settings.getConfig().getString("servidor.prefixo");
 	}
