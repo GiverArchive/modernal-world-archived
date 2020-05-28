@@ -1,2 +1,17 @@
 servidor:
   prefixo: '&b[Prefixo]'
+  
+  
+user_data:
+  nickname: 'GiverPlay007'
+  coins: 100
+  game:
+    level: 17
+    world: 'Mundo Das Calculadoras'
+  inventario:
+    size: 54
+    inventario_serializado:
+    - 5;2
+    - 17;12:2;
+    - 8;19;Espadinha
+    - 4;1
