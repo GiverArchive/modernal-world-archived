@@ -26,7 +26,7 @@ public class ModernalWorld extends JavaPlugin
 	
 	private Economy economy;
 	
-	private String prefix = "§a[ModernalWorld]§r";
+	private String prefix = "Â§a[ModernalWorld]Â§r";
 	
 	public static ModernalWorld getInstance()
 	{
@@ -50,7 +50,7 @@ public class ModernalWorld extends JavaPlugin
 		return this.prefix;
 	}
 	
-	// TODO Getters - Coleções
+	// TODO Getters - ColeÃ§Ãµes
 	
 	public HashMap<String, Command> getRegisteredCommands()
 	{
@@ -153,18 +153,18 @@ public class ModernalWorld extends JavaPlugin
 	{
 		instance = this;
 		
-		print(" §aHabilitando plugin");
+		print(" Â§aHabilitando plugin");
 		
 		setupConfigs();
 		setupRanks();
-		setupEconomy(); // Sem validação hehe
+		setupEconomy(); // Sem validaÃ§Ã£o hehe
 		registerCommands();
 	}
 	
 	@Override
 	public void onDisable()
 	{
-		print(getPrefix() + " §cDesabilitando plugin");
+		print(getPrefix() + " Â§cDesabilitando plugin");
 	}
 	
 	public Command getRegisteredCommand(String name)

@@ -24,14 +24,14 @@ public class CommandManager implements CommandExecutor
 		{
 			if(!(sender instanceof Player))
 			{
-				sender.sendMessage("§cEste comando só pode ser executado por jogadores");
+				sender.sendMessage("Â§cEste comando sÃ³ pode ser executado por jogadores");
 				return true;
 			}
 		} 
 		
 		if(!sender.hasPermission(command.getPermission()))
 		{
-			sender.sendMessage("§cPermissões insulficientes");
+			sender.sendMessage("Â§cPermissÃµes insulficientes");
 			return true;
 		}
 		

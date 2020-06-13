@@ -21,7 +21,7 @@ public abstract class Command
 	
 	public String getUsage()
 	{
-		return "§cUtilize: " + this.usage;
+		return "Â§cUtilize: " + this.usage;
 	}
 	
 	public CommandType getType()
