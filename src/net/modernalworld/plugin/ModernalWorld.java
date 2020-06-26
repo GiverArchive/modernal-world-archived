@@ -1,4 +1,4 @@
-package me.giverplay.modernalworld;
+package net.modernalworld.plugin;
 
 import java.util.HashMap;
 
@@ -6,23 +6,26 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import me.giverplay.modernalworld.command.Command;
-import me.giverplay.modernalworld.command.CommandManager;
-import me.giverplay.modernalworld.manager.ConfigManager;
-import me.giverplay.modernalworld.manager.PlayerManager;
-import me.giverplay.modernalworld.objects.Rank;
 import net.milkbowl.vault.economy.Economy;
+import net.modernalworld.plugin.command.CommandManager;
+import net.modernalworld.plugin.command.ModernalCommand;
+import net.modernalworld.plugin.command.commands.FlyCommand;
+import net.modernalworld.plugin.manager.ConfigManager;
+import net.modernalworld.plugin.manager.PlayerManager;
+import net.modernalworld.plugin.objects.Rank;
 
 public class ModernalWorld extends JavaPlugin
 {
 	private static ModernalWorld instance;
 	
-	private HashMap<String, Command> commands = new HashMap<>();
+	private HashMap<String, ModernalCommand> commands = new HashMap<>();
 	private HashMap<String, PlayerManager> players = new HashMap<>();
 	private HashMap<String, Rank> rankups = new HashMap<>();
 	
 	private ConfigManager settings;
 	private ConfigManager ranks;
+	
+	private CommandManager executor;
 	
 	private Economy economy;
 	
@@ -52,7 +55,7 @@ public class ModernalWorld extends JavaPlugin
 	
 	// TODO Getters - Coleções
 	
-	public HashMap<String, Command> getRegisteredCommands()
+	public HashMap<String, ModernalCommand> getRegisteredCommands()
 	{
 		return this.commands;
 	}
@@ -64,14 +67,13 @@ public class ModernalWorld extends JavaPlugin
 	
 	// TODO Encapsulamentos principais
 	
-	public void addCommand(String name, Command command)
+	public void addCommand(String name, ModernalCommand command)
 	{
+		if(executor == null)
+		  executor = new CommandManager(this);
+		
 		commands.put(name, command);
-	}
-	
-	public void removeCommand(String name)
-	{
-		commands.remove(name);
+		getCommand(name).setExecutor(executor);
 	}
 	
 	public void addPlayerManager(String name)
@@ -138,12 +140,7 @@ public class ModernalWorld extends JavaPlugin
 	
 	private void registerCommands()
 	{
-		CommandManager manager = new CommandManager(this);
-		
-		for(String cmd : commands.keySet())
-		{
-			getCommand(cmd).setExecutor(manager);
-		}
+		addCommand("fly", new FlyCommand());
 	}
 	
 	// TODO Enable e Disable
@@ -167,7 +164,7 @@ public class ModernalWorld extends JavaPlugin
 		print(getPrefix() + " §cDesabilitando plugin");
 	}
 	
-	public Command getRegisteredCommand(String name)
+	public ModernalCommand getRegisteredCommand(String name)
 	{
 		if(!commands.containsKey(name))
 		{

@@ -1,4 +1,4 @@
-package me.giverplay.modernalworld.command;
+package net.modernalworld.plugin.command;
 
 public enum CommandType
 {

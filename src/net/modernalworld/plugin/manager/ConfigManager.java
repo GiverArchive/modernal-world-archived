@@ -1,4 +1,4 @@
-package me.giverplay.modernalworld.manager;
+package net.modernalworld.plugin.manager;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.io.IOException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
-import me.giverplay.modernalworld.ModernalWorld;
+import net.modernalworld.plugin.ModernalWorld;
 
 public class ConfigManager
 {

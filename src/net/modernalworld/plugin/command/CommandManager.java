@@ -1,10 +1,10 @@
-package me.giverplay.modernalworld.command;
+package net.modernalworld.plugin.command;
 
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import me.giverplay.modernalworld.ModernalWorld;
+import net.modernalworld.plugin.ModernalWorld;
 
 public class CommandManager implements CommandExecutor
 {
@@ -18,7 +18,7 @@ public class CommandManager implements CommandExecutor
 	@Override
 	public boolean onCommand(CommandSender sender, org.bukkit.command.Command cmd, String label, String[] args)
 	{
-		Command command = plugin.getRegisteredCommand(cmd.getName());
+		ModernalCommand command = plugin.getRegisteredCommand(cmd.getName());
 		
 		if(command.getType().equals(CommandType.PLAYER))
 		{

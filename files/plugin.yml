@@ -2,6 +2,6 @@ name: ModernalWorld
 version: 1.0.0
 description: Plugin base
 api-version: 1.15
-main: me.giverplay.modernalworld.ModernalWorld
+main: net.modernalworld.plugin.ModernalWorld
 softdepend: [Vault, PermissionsEx]
 commands:

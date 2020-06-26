@@ -1,6 +1,6 @@
-package me.giverplay.modernalworld.objects;
+package net.modernalworld.plugin.objects;
 
-import me.giverplay.modernalworld.ModernalWorld;
+import net.modernalworld.plugin.ModernalWorld;
 
 public class Rank
 {

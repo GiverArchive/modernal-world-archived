@@ -1,13 +1,13 @@
-package me.giverplay.modernalworld.command;
+package net.modernalworld.plugin.command;
 
 import org.bukkit.command.CommandSender;
 
-public abstract class Command
+public abstract class ModernalCommand
 {
 	private String name, usage;
 	private CommandType type;
 	
-	public Command(String name, String usage, CommandType type)
+	public ModernalCommand(String name, String usage, CommandType type)
 	{
 		this.name = name;
 		this.type = type;
@@ -21,7 +21,7 @@ public abstract class Command
 	
 	public String getUsage()
 	{
-		return "§cUtilize: " + this.usage;
+		return "§cUtilize: /" + this.usage;
 	}
 	
 	public CommandType getType()

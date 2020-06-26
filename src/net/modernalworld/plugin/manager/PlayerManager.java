@@ -1,10 +1,10 @@
-package me.giverplay.modernalworld.manager;
+package net.modernalworld.plugin.manager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
-import me.giverplay.modernalworld.objects.Rank;
+import net.modernalworld.plugin.objects.Rank;
 
 public class PlayerManager extends ConfigManager
 {
@@ -39,6 +39,11 @@ public class PlayerManager extends ConfigManager
 	public void sendMessage(String msg)
 	{
 		this.player.sendMessage(msg);
+	}
+	
+	public void setFlightEnabled(boolean toSet)
+	{
+		player.setAllowFlight(toSet);
 	}
 	
 	public boolean hasPermission(String perm)
@@ -79,5 +84,10 @@ public class PlayerManager extends ConfigManager
 	public boolean hasPrimaryRank()
 	{
 		return this.rank.isPrimaryRank();
+	}
+	
+	public boolean getFlightEnabled()
+	{
+		return player.getAllowFlight();
 	}
 }
