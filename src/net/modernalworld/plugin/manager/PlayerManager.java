@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
+import net.modernalworld.plugin.ModernalWorld;
 import net.modernalworld.plugin.objects.Rank;
 
 public class PlayerManager extends ConfigManager
@@ -12,6 +13,7 @@ public class PlayerManager extends ConfigManager
 	private Player player;
 	private CraftPlayer craftplayer;
 	private Rank rank;
+	private ModernalWorld plugin;
 	
 	public PlayerManager(String name)
 	{
@@ -19,6 +21,7 @@ public class PlayerManager extends ConfigManager
 		
 		this.player = Bukkit.getPlayer(name);
 		this.craftplayer = (CraftPlayer) this.player;
+		this.plugin = ModernalWorld.getInstance();
 	}
 	
 	public Player getPlayer()
@@ -90,4 +93,26 @@ public class PlayerManager extends ConfigManager
 	{
 		return player.getAllowFlight();
 	}
+	
+	public double getMoney()
+	{
+		return plugin.getEconomy().getBalance(this.player);
+	}
+	
+	public void giveMoney(double amount)
+	{
+		plugin.getEconomy().depositPlayer(this.player, amount);
+	}
+	
+	public void takeMoney(double amount)
+	{
+		plugin.getEconomy().withdrawPlayer(this.player, amount);
+	}
+	
+	public boolean hasMoney(double amount)
+	{
+		return plugin.getEconomy().has(this.player, amount);
+	}
+	
+	
 }
