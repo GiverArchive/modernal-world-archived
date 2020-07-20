@@ -4,10 +4,10 @@ import net.modernalworld.plugin.ModernalWorld;
 
 public class Rank
 {
+	private ModernalWorld plugin;
 	private String name, next;
 	private double cost;
 	private boolean isLast, isPrimary;
-	private ModernalWorld plugin;
 	
 	public Rank(String name, String next, double cost, boolean isLast, boolean isPrimary)
 	{
@@ -26,7 +26,7 @@ public class Rank
 	
 	public Rank nextRank()
 	{
-		return (plugin.getRankups().containsKey(next) ? plugin.getRankups().get(next) : null);
+		return (plugin.getRankManager().getRankups().containsKey(next) ? plugin.getRankManager().getRankups().get(next) : null);
 	}
 	
 	public double getCost()

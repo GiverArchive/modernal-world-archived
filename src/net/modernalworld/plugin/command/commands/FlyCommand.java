@@ -5,7 +5,7 @@ import org.bukkit.command.CommandSender;
 import net.modernalworld.plugin.ModernalWorld;
 import net.modernalworld.plugin.command.CommandType;
 import net.modernalworld.plugin.command.ModernalCommand;
-import net.modernalworld.plugin.manager.PlayerManager;
+import net.modernalworld.plugin.objects.PlayerBase;
 
 public class FlyCommand extends ModernalCommand
 {
@@ -20,7 +20,7 @@ public class FlyCommand extends ModernalCommand
 	@Override
 	public void execute(CommandSender sender, String[] args)
 	{
-		PlayerManager player = plugin.getPlayerManager(sender.getName());
+		PlayerBase player = plugin.getPlayerManager().getPlayerBase(sender.getName());
 		
 		if(player.getFlightEnabled())
 		{

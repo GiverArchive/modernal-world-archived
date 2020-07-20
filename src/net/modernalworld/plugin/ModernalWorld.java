@@ -1,89 +1,42 @@
 package net.modernalworld.plugin;
 
-import java.util.HashMap;
-
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.milkbowl.vault.economy.Economy;
-import net.modernalworld.plugin.command.ModernalCommandExecutor;
-import net.modernalworld.plugin.command.ModernalCommand;
-import net.modernalworld.plugin.command.commands.FlyCommand;
+import net.modernalworld.plugin.manager.CommandManager;
 import net.modernalworld.plugin.manager.ConfigManager;
 import net.modernalworld.plugin.manager.PlayerManager;
-import net.modernalworld.plugin.objects.Rank;
+import net.modernalworld.plugin.manager.RankManager;
+import net.modernalworld.plugin.objects.Config;
 
 public class ModernalWorld extends JavaPlugin
 {
 	private static ModernalWorld instance;
 	
-	private HashMap<String, ModernalCommand> commands = new HashMap<>();
-	private HashMap<String, PlayerManager> players = new HashMap<>();
-	private HashMap<String, Rank> rankups = new HashMap<>();
-	
-	private ConfigManager settings;
-	private ConfigManager ranks;
-	
-	private ModernalCommandExecutor executor;
+	private CommandManager cmdManager;
+	private ConfigManager cfgManager;
+	private PlayerManager playerManager;
+	private RankManager rankManager;
+	private Config settings;
+	private String prefix = "§a[ModernalWorld]§r";
 	
 	private Economy economy;
-	
-	private String prefix = "§a[ModernalWorld]§r";
 	
 	public static ModernalWorld getInstance()
 	{
 		return instance;
 	}
-	
-	// TODO Ferramentas
-	
-	public void print(String msg)
-	{
-		Bukkit.getConsoleSender().sendMessage(msg);
-	}
-	
-	public void runConsole(String command)
-	{
-		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
-	}
-	
+
 	public String getPrefix()
 	{
 		return this.prefix;
 	}
-	
-	// TODO Getters - Coleções
-	
-	public HashMap<String, ModernalCommand> getRegisteredCommands()
+
+	public PlayerManager getPlayerManager()
 	{
-		return this.commands;
-	}
-	
-	public HashMap<String, Rank> getRankups()
-	{
-		return this.rankups;
-	}
-	
-	// TODO Encapsulamentos principais
-	
-	public void addCommand(String name, ModernalCommand command)
-	{
-		if(executor == null)
-		  executor = new ModernalCommandExecutor(this);
-		
-		commands.put(name, command);
-		getCommand(name).setExecutor(executor);
-	}
-	
-	public void addPlayerManager(String name)
-	{
-		players.put(name, new PlayerManager(name));
-	}
-	
-	public PlayerManager getPlayerManager(String name)
-	{
-		return (players.containsKey(name) ? players.get(name) : null);
+		return this.playerManager;
 	}
 	
 	public Economy getEconomy()
@@ -91,33 +44,43 @@ public class ModernalWorld extends JavaPlugin
 		return this.economy;
 	}
 	
-	// TODO Metodos De Registro
-	
-	private void setupConfigs()
+	public RankManager getRankManager()
 	{
-		settings = new ConfigManager("settings", null);
-		settings.saveDefaultConfig();
-		
-		ranks = new ConfigManager("ranks", null);
-		ranks.saveDefaultConfig();
-		
-		this.prefix = settings.getConfig().getString("servidor.prefixo");
+		return this.rankManager;
 	}
 	
-	public void setupRanks()
+	public ConfigManager getConfigManager()
 	{
-		for(String s : ranks.getConfig().getConfigurationSection("ranks").getKeys(false))
-		{
-			String path = "ranks." + s + ".";
-			String proximo = ranks.getConfig().getString(path + "proximo");
-			
-			double custo = ranks.getConfig().getDouble(path + "custo");
-			
-			boolean last = ranks.getConfig().getBoolean(path + "ultimo");
-			boolean prim = ranks.getConfig().getBoolean(path + "primeiro");
-			
-			rankups.put(s, new Rank(s, proximo, custo, last, prim));
-		}
+		return this.cfgManager;
+	}
+	
+	public CommandManager getCommandManager()
+	{
+		return this.cmdManager;
+	}
+	
+	@Override
+	public void onEnable()
+	{
+		instance = this;
+		
+		print(" §aHabilitando plugin");
+		
+		cfgManager = new ConfigManager(this);
+		rankManager = new RankManager(this);
+		cmdManager = new CommandManager(this);
+		playerManager = new PlayerManager(this);
+		
+		settings = cfgManager.getSettingsConfig();
+		this.prefix = settings.getConfig().getString("servidor.prefixo");
+		
+		setupEconomy(); // Sem validação hehe
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		print(getPrefix() + " §cDesabilitando plugin");
 	}
 	
 	private boolean setupEconomy() 
@@ -138,39 +101,14 @@ public class ModernalWorld extends JavaPlugin
 		return economy != null;
 	}
 	
-	private void registerCommands()
+	public void print(String msg)
 	{
-		addCommand("fly", new FlyCommand());
+		Bukkit.getConsoleSender().sendMessage(msg);
 	}
 	
-	// TODO Enable e Disable
-	
-	@Override
-	public void onEnable()
+	public void runConsole(String command)
 	{
-		instance = this;
-		
-		print(" §aHabilitando plugin");
-		
-		setupConfigs();
-		setupRanks();
-		setupEconomy(); // Sem validação hehe
-		registerCommands();
+		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
 	}
 	
-	@Override
-	public void onDisable()
-	{
-		print(getPrefix() + " §cDesabilitando plugin");
-	}
-	
-	public ModernalCommand getRegisteredCommand(String name)
-	{
-		if(!commands.containsKey(name))
-		{
-			return null;
-		}
-		
-		return commands.get(name);
-	}
 }

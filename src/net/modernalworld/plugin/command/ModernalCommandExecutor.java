@@ -18,7 +18,7 @@ public class ModernalCommandExecutor implements CommandExecutor
 	@Override
 	public boolean onCommand(CommandSender sender, org.bukkit.command.Command cmd, String label, String[] args)
 	{
-		ModernalCommand command = plugin.getRegisteredCommand(cmd.getName());
+		ModernalCommand command = plugin.getCommandManager().getRegisteredCommand(cmd.getName());
 		
 		if(command.getType().equals(CommandType.PLAYER))
 		{
