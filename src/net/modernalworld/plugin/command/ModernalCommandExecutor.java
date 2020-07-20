@@ -6,11 +6,11 @@ import org.bukkit.entity.Player;
 
 import net.modernalworld.plugin.ModernalWorld;
 
-public class CommandManager implements CommandExecutor
+public class ModernalCommandExecutor implements CommandExecutor
 {
 	private ModernalWorld plugin;
 	
-	public CommandManager(ModernalWorld plugin)
+	public ModernalCommandExecutor(ModernalWorld plugin)
 	{
 		this.plugin = plugin;
 	}

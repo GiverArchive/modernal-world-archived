@@ -7,7 +7,7 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.milkbowl.vault.economy.Economy;
-import net.modernalworld.plugin.command.CommandManager;
+import net.modernalworld.plugin.command.ModernalCommandExecutor;
 import net.modernalworld.plugin.command.ModernalCommand;
 import net.modernalworld.plugin.command.commands.FlyCommand;
 import net.modernalworld.plugin.manager.ConfigManager;
@@ -25,7 +25,7 @@ public class ModernalWorld extends JavaPlugin
 	private ConfigManager settings;
 	private ConfigManager ranks;
 	
-	private CommandManager executor;
+	private ModernalCommandExecutor executor;
 	
 	private Economy economy;
 	
@@ -70,7 +70,7 @@ public class ModernalWorld extends JavaPlugin
 	public void addCommand(String name, ModernalCommand command)
 	{
 		if(executor == null)
-		  executor = new CommandManager(this);
+		  executor = new ModernalCommandExecutor(this);
 		
 		commands.put(name, command);
 		getCommand(name).setExecutor(executor);
