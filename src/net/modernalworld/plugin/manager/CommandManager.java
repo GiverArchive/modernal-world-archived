@@ -21,18 +21,18 @@ public class CommandManager
 		registerCommands();
 	}
 	
-	public void addCommand(String name, ModernalCommand command)
+	public void addCommand(ModernalCommand command)
 	{
 		if(executor == null)
 		  executor = new ModernalCommandExecutor(modernal);
 		
-		commands.put(name, command);
-		modernal.getCommand(name).setExecutor(executor);
+		commands.put(command.getName(), command);
+		modernal.getCommand(command.getName()).setExecutor(executor);
 	}
 	
 	private void registerCommands()
 	{
-		addCommand("fly", new FlyCommand());
+		addCommand(new FlyCommand());
 	}
 	
 	public ModernalCommand getRegisteredCommand(String name)
